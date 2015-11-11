@@ -29,7 +29,7 @@ def gethash(a):
 		b = set(hash)
 		f_url = 'http://www.rmdown.com/link.php?hash=' + b.pop()
 		print(f_url)
-		return f_url
+	return f_url
 
 
 test = getpage(URL)
