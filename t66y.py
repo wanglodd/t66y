@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import re
 import sys
 import timeit
+import docopt
 import json
 
 your_page = input('Please enter which page you would like to scan: ')
@@ -48,5 +49,5 @@ def gethash(a):
 	return torrent_list
 
 
-test = getpage(URL)
-gethash(test)
+#test = getpage(URL)
+#gethash(test)
