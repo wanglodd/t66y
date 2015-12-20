@@ -14,6 +14,7 @@ your_page = input('Please enter which page you would like to scan: ')
 BASE_URL = 'http://t66y.com/thread0806.php?fid=15&search=&page='
 URL = BASE_URL + your_page.rstrip()
 
+
 def getpage(a):
 	laoshi_list = []
 	r = requests.get(a)
@@ -34,8 +35,8 @@ def gethash(a):
 	torrent_list = []
 	for link in a:
 		r = requests.get(link)
-		if not re.search('hash=([0-9a-z]+)',r.text):
-			hset = set(re.findall('hash=([0-9a-z]+)',r.text))
+		if not re.search('hash=([0-9a-z]+)', r.text):
+			hset = set(re.findall('hash=([0-9a-z]+)', r.text))
 			soup = BeautifulSoup(r.text, 'lxml')
 			title = str(soup.title.string)
 			b = {}
