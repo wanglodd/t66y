@@ -13,9 +13,11 @@ class aTorrentPageWithHorse(object):
     """
     This class is used for a search page which running on t66y 1024 website.
     """
-    def __init__(self,pageNumber):
+
+    def __init__(self, pageNumber):
        self.pageNumber = pageNumber
-       self.base_url = "http://t66y.com/thread0806.php?fid=15&search=&page={page}".format(page=pageNumber)
+       self.base_url = "http://t66y.com/thread0806.php?fid=15&search=&page={page}".format(
+           page=pageNumber)
 
 
 class aTorrent(object):
@@ -62,7 +64,8 @@ class aTorrent(object):
         :return a list of hash code in one page
         """
         self.text = self.__getObject().text
-        myHash = re.findall('http://www.rmdown.com/link.php\?hash=([0-9a-z]+)', self.text)
+        myHash = re.findall(
+            'http://www.rmdown.com/link.php\?hash=([0-9a-z]+)', self.text)
         return list(set(myHash))
 
     def downloadTorrent(self):
@@ -70,17 +73,23 @@ class aTorrent(object):
         lst = self.getHash()
         if not lst:
             return "Get hash code failed..."
-        else if len(lst) > 1:
+        elif len(lst) > 1:
             return "This page contain more than one hash..."
         else:
-            torrentUrl = "http://www.rmdown.com/link.php?hash=" + lst[0]
-            print(torrentUrl)
-            t =
+            referURL = "http://www.rmdown.com/link.php?hash=" + lst[0]
+            payLoad = {
+                "Origin": "http://www.rmdown.com",
+                "Referer": referURL,
+                "Cookie": "__cfduid=db348a22a6832824f038b250033a360231447168437"
+            }
+            t = requests.post(
+                "http://www.rmdown.com/download.php", data=payLoad)
+            print(t.status_code)
+            print(t.text)
 
 
 pn = aTorrent('http://t66y.com/htm_data/15/1512/1765207.html')
 
 print(pn.url)
-print(pn.getHtml())
-print(pn.getTitle(),pn.getHash())
+print(pn.getTitle(), pn.getHash())
 print(pn.downloadTorrent())
