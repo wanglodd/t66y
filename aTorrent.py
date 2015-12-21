@@ -52,7 +52,7 @@ class aTorrent(object):
         """
         Retun title of torrent page
         """
-        soup = BeautifulSoup(self.getHtml(), 'lxml', from_encoding='ISO-8859-1')
+        soup = BeautifulSoup(self.getHtml(), 'lxml', from_encoding='gb2312')
         self.title = soup.title
         return self.title.string
 
