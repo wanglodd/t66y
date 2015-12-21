@@ -9,13 +9,13 @@ import docopt
 import json
 
 
-#class aTorrentPageWithHorse(object):
-#    """
-#    This class is used for a search page which running on t66y 1024 website.
-#    """
-#    def __init__(self,pageNumber):
-#        self.pageNumber = pageNumber
-#       self.base_url = "http://t66y.com/thread0806.php?fid=15&search=&page={page}".format(page=pageNumber)
+class aTorrentPageWithHorse(object):
+    """
+    This class is used for a search page which running on t66y 1024 website.
+    """
+    def __init__(self,pageNumber):
+       self.pageNumber = pageNumber
+       self.base_url = "http://t66y.com/thread0806.php?fid=15&search=&page={page}".format(page=pageNumber)
 
 
 class aTorrent(object):
@@ -57,12 +57,30 @@ class aTorrent(object):
         return self.title.string
 
     def getHash(self):
+        """
+
+        :return a list of hash code in one page
+        """
         self.text = self.__getObject().text
         myHash = re.findall('http://www.rmdown.com/link.php\?hash=([0-9a-z]+)', self.text)
-        return myHash
+        return list(set(myHash))
+
+    def downloadTorrent(self):
+
+        lst = self.getHash()
+        if not lst:
+            return "Get hash code failed..."
+        else if len(lst) > 1:
+            return "This page contain more than one hash..."
+        else:
+            torrentUrl = "http://www.rmdown.com/link.php?hash=" + lst[0]
+            print(torrentUrl)
+            t =
+
 
 pn = aTorrent('http://t66y.com/htm_data/15/1512/1765207.html')
 
 print(pn.url)
 print(pn.getHtml())
 print(pn.getTitle(),pn.getHash())
+print(pn.downloadTorrent())
