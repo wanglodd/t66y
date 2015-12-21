@@ -30,6 +30,7 @@ class aTorrent(object):
 	def __getObject(self):
 		try:
 			r = requests.get(self.url, timeout=5)
+            r.encoding = 'gb2312'
 
 			if not r.status_code // 100 == 2:
 				return "Error: Unexpected response {}".format(r)
